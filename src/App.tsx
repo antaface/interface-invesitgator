@@ -119,6 +119,13 @@ const App = () => {
     }
   };
 
+  // Convert introChoices to cases format
+  const cases = introChoices.map(choice => ({
+    id: choice.id,
+    title: choice.label,
+    status: 'open' as const // All cases are open for now
+  }));
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       <Header onOpenCases={handleOpenCases} />
@@ -146,6 +153,7 @@ const App = () => {
       <CasesLogModal 
         open={drawerOpen} 
         onClose={() => setDrawerOpen(false)}
+        cases={cases}
         onSelectCase={handleSelectCase}
       />
     </div>
