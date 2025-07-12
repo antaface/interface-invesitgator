@@ -79,6 +79,11 @@ const App = () => {
     }
   };
 
+  const onViewLog = () => {
+    console.log('View Case Log clicked');
+    // TODO: Implement case log functionality
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4">
       {gameState.sceneId && (
@@ -87,6 +92,8 @@ const App = () => {
           sceneText={gameState.sceneText}
           choices={gameState.choices}
           onChoose={onChoose}
+          onViewLog={onViewLog}
+          isIntro={gameState.sceneId === 'intro'}
         />
       )}
     </div>
