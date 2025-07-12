@@ -30,7 +30,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
           <button
             key={choice.id}
             onClick={() => onChoose(choice.id)}
-            className="w-full md:w-auto bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+            className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
           >
             {choice.label}
           </button>
