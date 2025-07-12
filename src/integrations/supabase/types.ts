@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cases_progress: {
+        Row: {
+          case_id: string
+          id: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          case_id: string
+          id?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          case_id?: string
+          id?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      sessions: {
+        Row: {
+          current_scene_id: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          current_scene_id: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          current_scene_id?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

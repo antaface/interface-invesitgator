@@ -1,1 +1,5 @@
+
 project_id = "auliwbxalriveimoweat"
+
+[functions.chat]
+verify_jwt = false
