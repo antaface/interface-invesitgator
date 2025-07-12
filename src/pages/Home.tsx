@@ -7,6 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleStartInvestigation = () => {
+    localStorage.removeItem("ii-session");
     navigate('/play');
   };
 
