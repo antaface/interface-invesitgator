@@ -1,10 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, FolderOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Howler } from 'howler';
 
-const Header = () => {
+interface HeaderProps {
+  onOpenCases: () => void;
+}
+
+const Header = ({ onOpenCases }: HeaderProps) => {
   const [isMuted, setIsMuted] = useState(false);
 
   // Load mute state from localStorage on component mount
@@ -28,19 +32,31 @@ const Header = () => {
         Interface Investigator
       </h1>
       
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={toggleMute}
-        className="hover:bg-accent"
-        aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
-      >
-        {isMuted ? (
-          <VolumeX className="h-5 w-5" />
-        ) : (
-          <Volume2 className="h-5 w-5" />
-        )}
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onOpenCases}
+          className="hover:bg-accent"
+          aria-label="Open cases"
+        >
+          <FolderOpen className="h-5 w-5" />
+        </Button>
+        
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleMute}
+          className="hover:bg-accent"
+          aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
+        >
+          {isMuted ? (
+            <VolumeX className="h-5 w-5" />
+          ) : (
+            <Volume2 className="h-5 w-5" />
+          )}
+        </Button>
+      </div>
     </header>
   );
 };
