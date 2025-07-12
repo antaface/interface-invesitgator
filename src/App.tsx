@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from './components/Header';
@@ -20,6 +21,7 @@ const App = () => {
   });
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
 
   useEffect(() => {
     // Fetch initial scene on mount
@@ -43,6 +45,11 @@ const App = () => {
         
         // Store sessionId in localStorage when received
         localStorage.setItem('ii-session', data.sessionId);
+        
+        // Store intro choices if this is the intro scene
+        if (data.sceneId === 'intro') {
+          setIntroChoices(data.choices);
+        }
         
         setGameState({
           sceneId: data.sceneId,
@@ -94,12 +101,27 @@ const App = () => {
 
   const handleSelectCase = (caseId: string) => {
     console.log('Selected case:', caseId);
+    
+    // Find the matching intro choice by looking for the choice that leads to this case
+    const matchingChoice = introChoices.find(choice => choice.id === caseId);
+    
+    if (matchingChoice) {
+      onChoose(matchingChoice.id);
+    }
+    
     setDrawerOpen(false);
+  };
+
+  const handleOpenCases = () => {
+    // Only open modal if we're on intro scene or a success scene
+    if (gameState.sceneId === 'intro' || gameState.sceneId.endsWith('_success')) {
+      setDrawerOpen(true);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <Header onOpenCases={() => setDrawerOpen(true)} />
+      <Header onOpenCases={handleOpenCases} />
       
       <main className="flex-1 flex justify-center items-center p-4">
         {gameState.sceneId && (
@@ -114,7 +136,7 @@ const App = () => {
               sceneText={gameState.sceneText}
               choices={gameState.choices}
               onChoose={onChoose}
-              onViewLog={() => setDrawerOpen(true)}
+              onViewLog={handleOpenCases}
               isIntro={gameState.sceneId === 'intro'}
             />
           </motion.div>
