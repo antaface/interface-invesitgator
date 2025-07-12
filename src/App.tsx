@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from './components/Header';
@@ -22,6 +21,18 @@ const App = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
+
+  // Static list of all eight cases
+  const [cases] = useState([
+    { id: 'nav1', title: 'Bloated Nav', status: 'open' as const },
+    { id: 'tap1', title: 'Tiny Tap-Targets', status: 'open' as const },
+    { id: 'popup1', title: 'Dark-Pattern Pop-Up', status: 'open' as const },
+    { id: 'contrast1', title: 'Contrast Check', status: 'open' as const },
+    { id: 'anim1', title: 'Seizure-Inducing Animations', status: 'open' as const },
+    { id: 'form1', title: 'Misaligned Form Fields', status: 'open' as const },
+    { id: 'scroll1', title: 'Infinite Scroll Loop', status: 'open' as const },
+    { id: 'loader1', title: 'Misleading Loading Spinner', status: 'open' as const }
+  ]);
 
   useEffect(() => {
     // Fetch initial scene on mount
@@ -99,18 +110,11 @@ const App = () => {
     }
   };
 
-  const handleSelectCase = (caseId: string) => {
-    console.log('Selected case:', caseId);
-    
-    // Find the matching intro choice by looking for the choice that leads to this case
-    const matchingChoice = introChoices.find(choice => choice.id === caseId);
-    
-    if (matchingChoice) {
-      onChoose(matchingChoice.id);
-    }
-    
-    setDrawerOpen(false);
-  };
+  function handleSelectCase(choiceId: string) {
+    if (!gameState || gameState.sceneId !== 'intro') return; // safety
+    onChoose(choiceId); // reuse existing call that POSTs to /functions/chat
+    setDrawerOpen(false); // close modal
+  }
 
   const handleOpenCases = () => {
     // Only open modal if we're on intro scene or a success scene
@@ -118,13 +122,6 @@ const App = () => {
       setDrawerOpen(true);
     }
   };
-
-  // Convert introChoices to cases format
-  const cases = introChoices.map(choice => ({
-    id: choice.id,
-    title: choice.label,
-    status: 'open' as const // All cases are open for now
-  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
