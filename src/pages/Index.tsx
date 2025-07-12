@@ -1,8 +1,15 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleStartInvestigation = () => {
+    navigate('/game');
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 py-8">
@@ -18,7 +25,10 @@ const Index = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg text-lg">
+          <Button 
+            onClick={handleStartInvestigation}
+            className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg text-lg"
+          >
             Start Investigation
           </Button>
         </div>
