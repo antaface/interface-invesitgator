@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import SceneDisplay from './components/SceneDisplay';
+import { CasesDrawer } from './components/CasesDrawer';
 
 interface GameState {
   sceneId: string;
@@ -16,6 +16,8 @@ const App = () => {
     choices: [],
     sessionId: ''
   });
+
+  const [isCasesDrawerOpen, setIsCasesDrawerOpen] = useState(false);
 
   useEffect(() => {
     // Fetch initial scene on mount
@@ -81,7 +83,7 @@ const App = () => {
 
   const onViewLog = () => {
     console.log('View Case Log clicked');
-    // TODO: Implement case log functionality
+    setIsCasesDrawerOpen(true);
   };
 
   return (
@@ -96,6 +98,11 @@ const App = () => {
           isIntro={gameState.sceneId === 'intro'}
         />
       )}
+      
+      <CasesDrawer 
+        open={isCasesDrawerOpen} 
+        onClose={() => setIsCasesDrawerOpen(false)} 
+      />
     </div>
   );
 };
