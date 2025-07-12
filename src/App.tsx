@@ -21,10 +21,11 @@ const App = () => {
     // Fetch initial scene on mount
     const initializeGame = async () => {
       try {
-        const response = await fetch('/functions/chat', {
+        const response = await fetch('https://auliwbxalriveimoweat.supabase.co/functions/v1/chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bGl3YnhhbHJpdmVpbW93ZWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzQyNjYsImV4cCI6MjA2NzkxMDI2Nn0.Y322OiK3oTHYsJtqbWvy1LTHqlnaCSGOjUJJRPd3uZk`
           },
           body: JSON.stringify({})
         });
@@ -50,10 +51,11 @@ const App = () => {
 
   const onChoose = async (choiceId: string) => {
     try {
-      const response = await fetch('/functions/chat', {
+      const response = await fetch('https://auliwbxalriveimoweat.supabase.co/functions/v1/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bGl3YnhhbHJpdmVpbW93ZWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzQyNjYsImV4cCI6MjA2NzkxMDI2Nn0.Y322OiK3oTHYsJtqbWvy1LTHqlnaCSGOjUJJRPd3uZk`
         },
         body: JSON.stringify({
           sessionId: gameState.sessionId,
