@@ -6,9 +6,10 @@ import { Howler } from 'howler';
 
 interface HeaderProps {
   onOpenCases: () => void;
+  onOpenDrawer?: () => void;
 }
 
-const Header = ({ onOpenCases }: HeaderProps) => {
+const Header = ({ onOpenCases, onOpenDrawer }: HeaderProps) => {
   const [isMuted, setIsMuted] = useState(false);
 
   // Load mute state from localStorage on component mount
@@ -26,6 +27,14 @@ const Header = ({ onOpenCases }: HeaderProps) => {
     localStorage.setItem('audioMuted', newMuteState.toString());
   };
 
+  const handleCasesClick = () => {
+    if (onOpenDrawer) {
+      onOpenDrawer();
+    } else {
+      onOpenCases();
+    }
+  };
+
   return (
     <header className="flex items-center justify-between p-4 border-b bg-background">
       <h1 className="text-2xl font-bold text-primary">
@@ -36,7 +45,7 @@ const Header = ({ onOpenCases }: HeaderProps) => {
         <Button
           variant="ghost"
           size="icon"
-          onClick={onOpenCases}
+          onClick={handleCasesClick}
           className="hover:bg-accent"
           aria-label="Open cases"
         >
