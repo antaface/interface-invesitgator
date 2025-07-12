@@ -2,6 +2,7 @@
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import * as path from 'path';
+import { z } from 'zod';
 import { Scene } from '../src/types/scene';
 
 interface CSVRow {
@@ -15,6 +16,61 @@ interface CSVRow {
   choice3NextId?: string;
   choice4Label?: string;
   choice4NextId?: string;
+}
+
+// Zod schemas for validation
+const ChoiceSchema = z.object({
+  label: z.string().min(1, "Choice label cannot be empty"),
+  nextId: z.string().min(1, "Choice nextId cannot be empty")
+});
+
+const SceneSchema = z.object({
+  sceneId: z.string().min(1, "Scene ID cannot be empty"),
+  sceneText: z.string().min(1, "Scene text cannot be empty"),
+  choices: z.array(ChoiceSchema)
+});
+
+const ScenesArraySchema = z.array(SceneSchema);
+
+function validateScenes(scenes: Scene[]): void {
+  // Validate basic structure
+  const validationResult = ScenesArraySchema.safeParse(scenes);
+  if (!validationResult.success) {
+    console.error('Scene structure validation failed:');
+    validationResult.error.errors.forEach(error => {
+      console.error(`- ${error.path.join('.')}: ${error.message}`);
+    });
+    process.exit(1);
+  }
+
+  // Check for unique sceneIds
+  const sceneIds = scenes.map(scene => scene.sceneId);
+  const uniqueSceneIds = new Set(sceneIds);
+  
+  if (sceneIds.length !== uniqueSceneIds.size) {
+    const duplicates = sceneIds.filter((id, index) => sceneIds.indexOf(id) !== index);
+    console.error('Duplicate scene IDs found:', [...new Set(duplicates)]);
+    process.exit(1);
+  }
+
+  // Check that every choice.nextId references an existing sceneId
+  const invalidReferences: string[] = [];
+  
+  scenes.forEach(scene => {
+    scene.choices.forEach(choice => {
+      if (!uniqueSceneIds.has(choice.nextId)) {
+        invalidReferences.push(`Scene "${scene.sceneId}" has choice pointing to non-existent scene "${choice.nextId}"`);
+      }
+    });
+  });
+
+  if (invalidReferences.length > 0) {
+    console.error('Invalid scene references found:');
+    invalidReferences.forEach(error => console.error(`- ${error}`));
+    process.exit(1);
+  }
+
+  console.log(`✓ Validation passed: ${scenes.length} scenes with unique IDs and valid references`);
 }
 
 async function parseScenes() {
@@ -56,6 +112,9 @@ async function parseScenes() {
         choices,
       };
     });
+
+    // Validate the parsed scenes
+    validateScenes(scenes);
 
     // Ensure output directory exists
     const outputDir = path.dirname(outputPath);
