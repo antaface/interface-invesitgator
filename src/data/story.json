@@ -1,0 +1,79 @@
+
+{
+  "nodes": [
+    {
+      "id": "start",
+      "summary": "The Great Navigation Disaster",
+      "description": "A major e-commerce platform has experienced a 60% drop in conversions overnight. Users are abandoning their shopping carts at unprecedented rates. The CEO is demanding answers, and you've been called in as the lead UX investigator.",
+      "decisions": [
+        {
+          "id": "investigate_nav",
+          "text": "Investigate the navigation system changes",
+          "nextNodeId": "nav_investigation"
+        },
+        {
+          "id": "check_checkout",
+          "text": "Examine the checkout process",
+          "nextNodeId": "checkout_investigation"
+        },
+        {
+          "id": "analyze_data",
+          "text": "Review analytics and user behavior data",
+          "nextNodeId": "data_analysis"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "initial_report",
+          "name": "Incident Report",
+          "description": "Initial report showing 60% conversion drop starting at 2:00 AM",
+          "type": "document",
+          "discovered": true
+        },
+        {
+          "id": "ceo_testimony",
+          "name": "CEO Statement",
+          "description": "CEO expressing concern about the sudden performance drop",
+          "type": "testimony",
+          "discovered": true
+        }
+      ],
+      "isComplete": false
+    },
+    {
+      "id": "nav_investigation",
+      "summary": "Navigation System Analysis",
+      "description": "You discover that the development team deployed a new mega-menu system at 1:45 AM. The menu has 47 categories and subcategories, creating analysis paralysis for users.",
+      "decisions": [
+        {
+          "id": "confront_devs",
+          "text": "Confront the development team about the deployment",
+          "nextNodeId": "dev_confrontation"
+        },
+        {
+          "id": "test_menu",
+          "text": "Conduct usability testing on the new menu",
+          "nextNodeId": "menu_testing",
+          "requiresEvidence": ["deployment_logs"]
+        }
+      ],
+      "evidence": [
+        {
+          "id": "deployment_logs",
+          "name": "Deployment Logs",
+          "description": "Logs showing mega-menu deployment at 1:45 AM",
+          "type": "document",
+          "discovered": false
+        },
+        {
+          "id": "heatmap_data",
+          "name": "User Heatmap",
+          "description": "Heatmap showing users hovering over menu items without clicking",
+          "type": "analysis",
+          "discovered": false
+        }
+      ],
+      "isComplete": false
+    }
+  ]
+}
