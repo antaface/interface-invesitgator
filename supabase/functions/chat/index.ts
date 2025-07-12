@@ -2,7 +2,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-// Import scenes data - we'll need to copy this into the function
+// Import scenes data - properly escaped JSON
 const scenes = [
   {
     "sceneId": "intro",
@@ -72,7 +72,7 @@ const scenes = [
   },
   {
     "sceneId": "nav3",
-    "sceneText": "The shaken user mutters, "I never found the checkout." Your heart clenches as she sheds a tear.",
+    "sceneText": "The shaken user mutters, \"I never found the checkout.\" Your heart clenches as she sheds a tear.",
     "choices": [
       {
         "label": "Add a visible 'Checkout' button",
