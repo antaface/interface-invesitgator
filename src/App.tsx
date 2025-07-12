@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from './components/Header';
@@ -26,13 +25,14 @@ const App = () => {
     // Fetch initial scene on mount
     const initializeGame = async () => {
       try {
+        const stored = localStorage.getItem('ii-session');
         const response = await fetch('https://auliwbxalriveimoweat.supabase.co/functions/v1/chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bGl3YnhhbHJpdmVpbW93ZWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzQyNjYsImV4cCI6MjA2NzkxMDI2Nn0.Y322OiK3oTHYsJtqbWvy1LTHqlnaCSGOjUJJRPd3uZk`
           },
-          body: JSON.stringify({})
+          body: JSON.stringify({ sessionId: stored })
         });
         
         if (!response.ok) {
@@ -40,6 +40,10 @@ const App = () => {
         }
         
         const data = await response.json();
+        
+        // Store sessionId in localStorage when received
+        localStorage.setItem('ii-session', data.sessionId);
+        
         setGameState({
           sceneId: data.sceneId,
           sceneText: data.sceneText,
@@ -73,6 +77,10 @@ const App = () => {
       }
       
       const data = await response.json();
+      
+      // Store updated sessionId in localStorage
+      localStorage.setItem('ii-session', data.sessionId);
+      
       setGameState({
         sceneId: data.sceneId,
         sceneText: data.sceneText,
