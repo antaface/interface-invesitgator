@@ -1,4 +1,3 @@
-
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -6,16 +5,24 @@ import { z } from 'zod';
 import { Scene } from '../src/types/scene';
 
 interface CSVRow {
-  sceneId: string;
-  sceneText: string;
-  choice1Label?: string;
-  choice1NextId?: string;
-  choice2Label?: string;
-  choice2NextId?: string;
-  choice3Label?: string;
-  choice3NextId?: string;
-  choice4Label?: string;
-  choice4NextId?: string;
+  scene_id: string;
+  scene_text: string;
+  choiceA?: string;
+  nextA?: string;
+  choiceB?: string;
+  nextB?: string;
+  choiceC?: string;
+  nextC?: string;
+  choiceD?: string;
+  nextD?: string;
+  choiceE?: string;
+  nextE?: string;
+  choiceF?: string;
+  nextF?: string;
+  choiceG?: string;
+  nextG?: string;
+  choiceH?: string;
+  nextH?: string;
 }
 
 // Zod schemas for validation
@@ -96,19 +103,21 @@ async function parseScenes() {
     const scenes: Scene[] = records.map((row) => {
       const choices: { label: string; nextId: string }[] = [];
 
-      // Process up to 4 choices
-      for (let i = 1; i <= 4; i++) {
-        const label = row[`choice${i}Label` as keyof CSVRow] as string;
-        const nextId = row[`choice${i}NextId` as keyof CSVRow] as string;
+      // Process up to 8 choices (A through H)
+      const choiceLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+      
+      choiceLetters.forEach(letter => {
+        const label = row[`choice${letter}` as keyof CSVRow] as string;
+        const nextId = row[`next${letter}` as keyof CSVRow] as string;
         
         if (label && nextId) {
           choices.push({ label, nextId });
         }
-      }
+      });
 
       return {
-        sceneId: row.sceneId,
-        sceneText: row.sceneText,
+        sceneId: row.scene_id,
+        sceneText: row.scene_text,
         choices,
       };
     });
