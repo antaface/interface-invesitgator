@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from './components/Header';
 import SceneDisplay from './components/SceneDisplay';
-import { CasesDrawer } from './components/CasesDrawer';
+import { CasesLogModal } from './components/CasesLogModal';
 
 interface GameState {
   sceneId: string;
@@ -92,6 +92,11 @@ const App = () => {
     }
   };
 
+  const handleSelectCase = (caseId: string) => {
+    console.log('Selected case:', caseId);
+    setDrawerOpen(false);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       <Header onOpenCases={() => setDrawerOpen(true)} />
@@ -116,7 +121,11 @@ const App = () => {
         )}
       </main>
       
-      <CasesDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <CasesLogModal 
+        open={drawerOpen} 
+        onClose={() => setDrawerOpen(false)}
+        onSelectCase={handleSelectCase}
+      />
     </div>
   );
 };
