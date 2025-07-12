@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import SceneDisplay from './components/SceneDisplay';
 import { CasesDrawer } from './components/CasesDrawer';
 
@@ -84,14 +86,21 @@ const App = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4">
       {gameState.sceneId && (
-        <SceneDisplay
-          sceneId={gameState.sceneId}
-          sceneText={gameState.sceneText}
-          choices={gameState.choices}
-          onChoose={onChoose}
-          onViewLog={() => setDrawerOpen(true)}
-          isIntro={gameState.sceneId === 'intro'}
-        />
+        <motion.div
+          key={gameState.sceneId}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+        >
+          <SceneDisplay
+            sceneId={gameState.sceneId}
+            sceneText={gameState.sceneText}
+            choices={gameState.choices}
+            onChoose={onChoose}
+            onViewLog={() => setDrawerOpen(true)}
+            isIntro={gameState.sceneId === 'intro'}
+          />
+        </motion.div>
       )}
       
       <CasesDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
