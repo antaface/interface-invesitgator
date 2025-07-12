@@ -17,7 +17,7 @@ const App = () => {
     sessionId: ''
   });
 
-  const [isCasesDrawerOpen, setIsCasesDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     // Fetch initial scene on mount
@@ -81,11 +81,6 @@ const App = () => {
     }
   };
 
-  const onViewLog = () => {
-    console.log('View Case Log clicked');
-    setIsCasesDrawerOpen(true);
-  };
-
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-4">
       {gameState.sceneId && (
@@ -94,15 +89,12 @@ const App = () => {
           sceneText={gameState.sceneText}
           choices={gameState.choices}
           onChoose={onChoose}
-          onViewLog={onViewLog}
+          onViewLog={() => setDrawerOpen(true)}
           isIntro={gameState.sceneId === 'intro'}
         />
       )}
       
-      <CasesDrawer 
-        open={isCasesDrawerOpen} 
-        onClose={() => setIsCasesDrawerOpen(false)} 
-      />
+      <CasesDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>
   );
 };
