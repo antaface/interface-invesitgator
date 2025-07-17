@@ -1,6 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Howl } from 'howler';
 import Header from './components/Header';
 import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
@@ -23,6 +24,20 @@ const App = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
+  
+  const bg = useRef<Howl | null>(null);
+
+  useEffect(() => {
+    bg.current = new Howl({
+      src: ["/audio/ambient_loop.mp3"],
+      loop: true,
+      volume: 0.2,
+    });
+    bg.current.play();
+    return () => {
+      bg.current?.stop();
+    };
+  }, []);
 
   useEffect(() => {
     // Fetch initial scene on mount
