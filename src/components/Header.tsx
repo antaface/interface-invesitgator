@@ -1,73 +1,46 @@
 
-import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, FolderOpen } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Howler } from 'howler';
+import { Volume2, VolumeX, FolderKanban } from "lucide-react";
 
-interface HeaderProps {
-  onOpenCases: () => void;
-  onOpenDrawer?: () => void;
-}
-
-const Header = ({ onOpenCases, onOpenDrawer }: HeaderProps) => {
-  const [isMuted, setIsMuted] = useState(false);
-
-  // Load mute state from localStorage on component mount
-  useEffect(() => {
-    const savedMuteState = localStorage.getItem('audioMuted');
-    const shouldMute = savedMuteState === 'true';
-    setIsMuted(shouldMute);
-    Howler.mute(shouldMute);
-  }, []);
-
-  const toggleMute = () => {
-    const newMuteState = !isMuted;
-    setIsMuted(newMuteState);
-    Howler.mute(newMuteState);
-    localStorage.setItem('audioMuted', newMuteState.toString());
-  };
-
-  const handleCasesClick = () => {
-    if (onOpenDrawer) {
-      onOpenDrawer();
-    } else {
-      onOpenCases();
-    }
-  };
-
+export function Header({
+  muted,
+  toggleMute,
+  openCaseLog,
+}: {
+  muted: boolean;
+  toggleMute: () => void;
+  openCaseLog: () => void;
+}) {
   return (
-    <header className="flex items-center justify-between p-4 border-b bg-background">
-      <h1 className="text-2xl font-bold text-primary">
-        Interface Investigator
-      </h1>
-      
-      <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={handleCasesClick}
-          className="hover:bg-accent"
-          aria-label="Open cases"
+    <header className="fixed top-4 left-4 right-4 z-20 flex items-center justify-between bg-transparent">
+      {/* Logo */}
+      <img
+        src="/logo.png"
+        alt="Interface Investigator"
+        className="h-10 select-none pointer-events-none"
+      />
+
+      {/* Icon buttons */}
+      <div className="flex gap-3">
+        {/* Case Log */}
+        <button
+          onClick={openCaseLog}
+          className="bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 shadow-md transition"
         >
-          <FolderOpen className="h-5 w-5" />
-        </Button>
-        
-        <Button
-          variant="ghost"
-          size="icon"
+          <FolderKanban className="h-5 w-5" strokeWidth={1.5} />
+        </button>
+
+        {/* Mute / Unmute */}
+        <button
           onClick={toggleMute}
-          className="hover:bg-accent"
-          aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
+          className="bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 shadow-md transition"
         >
-          {isMuted ? (
-            <VolumeX className="h-5 w-5" />
+          {muted ? (
+            <VolumeX className="h-5 w-5" strokeWidth={1.5} />
           ) : (
-            <Volume2 className="h-5 w-5" />
+            <Volume2 className="h-5 w-5" strokeWidth={1.5} />
           )}
-        </Button>
+        </button>
       </div>
     </header>
   );
-};
-
-export default Header;
+}

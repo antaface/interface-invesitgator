@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Howl } from 'howler';
-import Header from './components/Header';
+import { Howl, Howler } from 'howler';
+import { Header } from './components/Header';
 import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
 import { getBackground } from './utils/getBackground';
@@ -24,10 +24,17 @@ const App = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
+  const [isMuted, setIsMuted] = useState(false);
   
   const bg = useRef<Howl | null>(null);
 
   useEffect(() => {
+    // Load mute state from localStorage on component mount
+    const savedMuteState = localStorage.getItem('audioMuted');
+    const shouldMute = savedMuteState === 'true';
+    setIsMuted(shouldMute);
+    Howler.mute(shouldMute);
+    
     bg.current = new Howl({
       src: ["/audio/ambient_loop.mp3"],
       loop: true,
@@ -157,6 +164,13 @@ const App = () => {
     setDrawerOpen(true);
   };
 
+  const toggleMute = () => {
+    const newMuteState = !isMuted;
+    setIsMuted(newMuteState);
+    Howler.mute(newMuteState);
+    localStorage.setItem('audioMuted', newMuteState.toString());
+  };
+
   return (
     <div className="relative min-h-screen">
       {/* BACKGROUND */}
@@ -166,7 +180,7 @@ const App = () => {
       />
 
       {/* FOREGROUND UI */}
-      <Header onOpenCases={handleOpenCases} />
+      <Header muted={isMuted} toggleMute={toggleMute} openCaseLog={handleOpenCases} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         {gameState.sceneId && (
           <motion.div
