@@ -20,7 +20,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ["'IM Fell French Canon'", "serif"],
+				sans: ["'Faculty Glyphic'", "serif"],
 				serif: ['Roboto Slab', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
 			},
 			colors: {
