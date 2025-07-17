@@ -1,18 +1,18 @@
-export function getBackground(sceneId: string) {
-  const map: { [k: string]: string } = {
-    landing:  "/backgrounds/landing.png",
-    intro:    "/backgrounds/landing.png",   // intro uses the same artwork
-    nav:      "/backgrounds/nav.png",
-    tap:      "/backgrounds/tap.png",
-    form:     "/backgrounds/form.png",
-    popup:    "/backgrounds/popup.png",
-    scroll:   "/backgrounds/scroll.png",
-    anim:     "/backgrounds/anim.png",
-    loader:   "/backgrounds/loader.png",
-    contrast: "/backgrounds/contrast.png",
-  };
+const base = import.meta.env.BASE_URL ?? "/";
 
-  const key =
-    Object.keys(map).find(prefix => sceneId.startsWith(prefix)) || "landing";
+export function getBackground(sceneId: string) {
+  const map: Record<string, string> = {
+    landing:  `${base}backgrounds/landing.png`,
+    intro:    `${base}backgrounds/landing.png`,
+    nav:      `${base}backgrounds/nav.png`,
+    tap:      `${base}backgrounds/tap.png`,
+    form:     `${base}backgrounds/form.png`,
+    popup:    `${base}backgrounds/popup.png`,
+    scroll:   `${base}backgrounds/scroll.png`,
+    anim:     `${base}backgrounds/anim.png`,
+    loader:   `${base}backgrounds/loader.png`,
+    contrast: `${base}backgrounds/contrast.png`,
+  };
+  const key = Object.keys(map).find(p => sceneId.startsWith(p)) ?? "landing";
   return map[key];
 }
