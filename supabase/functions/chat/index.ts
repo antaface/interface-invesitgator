@@ -523,7 +523,15 @@ serve(async (req) => {
         throw new Error(`Choice not found: ${choiceId} in scene ${currentSceneId}`);
       }
 
-      const nextSceneId = choice.nextId;
+      let nextSceneId = choice.nextId;
+      
+      // Special handling: if current scene ends with "_fail" and
+      // the chosen nextId is "intro", redirect to the branch root.
+      if (currentScene.sceneId.endsWith("_fail") && nextSceneId === "intro") {
+        const prefix = currentScene.sceneId.split("_")[0]; // e.g., "nav"
+        nextSceneId = prefix + "1";
+      }
+      
       console.log('Advancing to scene:', nextSceneId);
 
       // Update session with new scene
