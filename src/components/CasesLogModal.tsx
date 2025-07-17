@@ -2,23 +2,13 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { casesMeta } from "@/data/casesMeta";
 
 interface CasesLogModalProps {
   open: boolean;
   onClose: () => void;
   onSelectCase: (id: string) => void;
 }
-
-const cases = [
-  { id: 'nav1', title: 'Bloated Nav' },
-  { id: 'tap1', title: 'Tiny Tap-Targets' },
-  { id: 'form1', title: 'Frustrating Forms' },
-  { id: 'search1', title: 'Broken Search' },
-  { id: 'modal1', title: 'Modal Madness' },
-  { id: 'mobile1', title: 'Mobile Mayhem' },
-  { id: 'load1', title: 'Loading Limbo' },
-  { id: 'access1', title: 'Accessibility Abyss' },
-];
 
 export function CasesLogModal({ open, onClose, onSelectCase }: CasesLogModalProps) {
   return (
@@ -29,16 +19,19 @@ export function CasesLogModal({ open, onClose, onSelectCase }: CasesLogModalProp
         </DialogHeader>
         
         <div className="space-y-2">
-          {cases.map((caseItem) => (
-            <Button
-              key={caseItem.id}
-              variant="ghost"
-              className="w-full justify-between h-auto py-3 px-4"
-              onClick={() => onSelectCase(caseItem.id)}
-            >
-              <span className="text-left">{caseItem.title}</span>
-              <Badge variant="secondary">Pending</Badge>
-            </Button>
+          {casesMeta.map(c => (
+            <div key={c.prefix} className="flex items-center justify-between p-3 border rounded">
+              <span className="text-left">{c.title}</span>
+              {c.status === 'closed'
+                ? <span className="text-sm text-muted-foreground">Case Closed</span>
+                : <button 
+                    onClick={() => onSelectCase(c.prefix + "1")}
+                    className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded hover:bg-primary/90"
+                  >
+                    Investigate Now
+                  </button>
+              }
+            </div>
           ))}
         </div>
       </DialogContent>
