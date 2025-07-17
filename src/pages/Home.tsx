@@ -12,7 +12,11 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen">
+      <div
+        className="fixed inset-0 -z-10 bg-cover bg-center"
+        style={{ backgroundImage: "url(/backgrounds/landing.png)" }}
+      />
       <div className="container mx-auto px-4 py-8">
         {/* Hero Header */}
         <div className="text-center mb-12">
@@ -28,9 +32,9 @@ const Home = () => {
         <div className="text-center">
           <Button 
             onClick={handleStartInvestigation}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg text-lg"
+            className="btn-3d mt-8"
           >
-            Start Investigation
+            Start investigation
           </Button>
         </div>
       </div>
