@@ -25,9 +25,9 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   const isSuccessScene = sceneId.endsWith('_success');
 
   return (
-    <div className="max-w-md mx-auto bg-white dark:bg-zinc-800 p-6 rounded-2xl shadow-xl space-y-6">
+    <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 max-w-xl mx-auto relative before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6">
       <div className="space-y-4">
-        <p className="text-gray-800 dark:text-gray-200 leading-relaxed">
+        <p className="prose prose-invert text-zinc-50">
           {sceneText}
         </p>
       </div>
