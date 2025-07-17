@@ -23,7 +23,7 @@ export function CasesLogModal({ open, onClose, onSelectCase }: CasesLogModalProp
             <div key={c.prefix} className="flex items-center justify-between p-3 border rounded">
               <span className="text-left">{c.title}</span>
               <button 
-                onClick={() => onSelectCase(c.prefix + "1")}
+                onClick={() => onSelectCase(c.prefix)}
                 className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded hover:bg-primary/90"
               >
                 Investigate Now
