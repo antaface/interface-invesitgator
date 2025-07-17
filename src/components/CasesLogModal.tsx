@@ -22,11 +22,11 @@ export function CasesLogModal({ open, onClose, onSelectCase }: CasesLogModalProp
           {casesMeta.map(c => (
             <div key={c.prefix} className="flex items-center justify-between p-3 border rounded">
               <span className="text-left">{c.title}</span>
-              <button 
+              <button
                 onClick={() => onSelectCase(c.prefix)}
-                className="btn-3d mb-3"
+                className="btn-link"
               >
-                Investigate Now
+                Investigate&nbsp;now →
               </button>
             </div>
           ))}
