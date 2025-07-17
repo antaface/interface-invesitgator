@@ -113,10 +113,7 @@ const App = () => {
   };
 
   const handleOpenCases = () => {
-    // Only open modal if we're on intro scene or a success scene
-    if (gameState.sceneId === 'intro' || gameState.sceneId.endsWith('_success')) {
-      setDrawerOpen(true);
-    }
+    setDrawerOpen(true);
   };
 
   return (
