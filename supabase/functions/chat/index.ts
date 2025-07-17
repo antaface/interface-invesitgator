@@ -466,8 +466,8 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { sessionId, choiceId } = await req.json();
-    console.log('Chat request received:', { sessionId, choiceId });
+    const { sessionId, choiceId, jumpToFirstScene } = await req.json();
+    console.log('Chat request received:', { sessionId, choiceId, jumpToFirstScene });
 
     let currentSessionId = sessionId;
     let currentSceneId: string;
@@ -505,6 +505,36 @@ serve(async (req) => {
 
       currentSceneId = session.current_scene_id;
       console.log('Current scene:', currentSceneId);
+    }
+
+    // Handle jumpToFirstScene - skip normal choice validation
+    if (jumpToFirstScene) {
+      console.log('Jumping to scene:', jumpToFirstScene);
+      
+      await supabase
+        .from("sessions")
+        .update({ current_scene_id: jumpToFirstScene, updated_at: new Date().toISOString() })
+        .eq("id", currentSessionId);
+
+      const target = scenes.find(s => s.sceneId === jumpToFirstScene);
+      if (!target) {
+        throw new Error(`Target scene not found: ${jumpToFirstScene}`);
+      }
+      
+      return new Response(JSON.stringify({
+        sessionId: currentSessionId,
+        sceneId: target.sceneId,
+        sceneText: target.sceneText,
+        choices: target.choices.map(choice => ({
+          id: choice.nextId,
+          label: choice.label
+        }))
+      }), {
+        headers: { 
+          ...corsHeaders,
+          'Content-Type': 'application/json' 
+        },
+      });
     }
 
     // If choiceId exists, advance to next scene
