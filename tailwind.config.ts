@@ -24,6 +24,8 @@ export default {
 				serif: ['Roboto Slab', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
 			},
 			colors: {
+				accentStart: "#d29cf8",   // light neon violet
+				accentEnd:   "#7c41e6",   // deeper violet (matches logo glow)
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -67,6 +69,9 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			boxShadow: {
+				'button-3d': '0 4px 0 0 rgba(0,0,0,0.35)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

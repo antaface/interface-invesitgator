@@ -36,7 +36,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
         {isIntroScene ? (
           <button
             onClick={onViewLog}
-            className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+            className="btn-3d mb-3"
           >
             Open Case Log
           </button>
@@ -47,7 +47,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
             </div>
             <button
               onClick={onViewLog}
-              className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+              className="btn-3d mb-3"
             >
               Back to Case Log
             </button>
@@ -57,7 +57,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
             <button
               key={choice.id}
               onClick={() => onChoose(choice.id)}
-              className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+              className="btn-3d mb-3"
             >
               {choice.label}
             </button>

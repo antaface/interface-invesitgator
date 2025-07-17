@@ -24,7 +24,7 @@ export function CasesLogModal({ open, onClose, onSelectCase }: CasesLogModalProp
               <span className="text-left">{c.title}</span>
               <button 
                 onClick={() => onSelectCase(c.prefix)}
-                className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded hover:bg-primary/90"
+                className="btn-3d mb-3"
               >
                 Investigate Now
               </button>
