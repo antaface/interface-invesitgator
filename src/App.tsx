@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Header from './components/Header';
 import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
+import { getBackground } from './utils/getBackground';
 
 interface GameState {
   sceneId: string;
@@ -142,34 +143,36 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <Header onOpenCases={handleOpenCases} />
-      
-      <main className="flex-1 flex justify-center items-center p-4">
-        {gameState.sceneId && (
-          <motion.div
-            key={gameState.sceneId}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-          >
-            <SceneDisplay
-              sceneId={gameState.sceneId}
-              sceneText={gameState.sceneText}
-              choices={gameState.choices}
-              onChoose={onChoose}
-              onViewLog={handleOpenCases}
-              isIntro={gameState.sceneId === 'intro'}
-            />
-          </motion.div>
-        )}
-      </main>
-      
-      <CasesLogModal 
-        open={drawerOpen} 
-        onClose={() => setDrawerOpen(false)}
-        onSelectCase={handleSelectCase}
-      />
+    <div style={{backgroundImage:`url(${getBackground(gameState.sceneId)})`}} className="min-h-screen bg-cover bg-center transition-all duration-500">
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+        <Header onOpenCases={handleOpenCases} />
+        
+        <main className="flex-1 flex justify-center items-center p-4">
+          {gameState.sceneId && (
+            <motion.div
+              key={gameState.sceneId}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              <SceneDisplay
+                sceneId={gameState.sceneId}
+                sceneText={gameState.sceneText}
+                choices={gameState.choices}
+                onChoose={onChoose}
+                onViewLog={handleOpenCases}
+                isIntro={gameState.sceneId === 'intro'}
+              />
+            </motion.div>
+          )}
+        </main>
+        
+        <CasesLogModal 
+          open={drawerOpen} 
+          onClose={() => setDrawerOpen(false)}
+          onSelectCase={handleSelectCase}
+        />
+      </div>
     </div>
   );
 };
