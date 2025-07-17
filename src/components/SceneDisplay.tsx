@@ -38,7 +38,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
             onClick={onViewLog}
             className="btn-3d mb-3"
           >
-            Open Case Log
+            Open case log
           </button>
         ) : isSuccessScene ? (
           <>
@@ -49,7 +49,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
               onClick={onViewLog}
               className="btn-3d mb-3"
             >
-              Back to Case Log
+              Back to case log
             </button>
           </>
         ) : (

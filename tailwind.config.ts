@@ -24,8 +24,8 @@ export default {
 				serif: ['Roboto Slab', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
 			},
 			colors: {
-				accentStart: "#d29cf8",   // light neon violet
-				accentEnd:   "#7c41e6",   // deeper violet (matches logo glow)
+				accentStart: "#7c41e6",   // single solid shade
+				accentEnd:   "#7c41e6",   // same value, kills gradient
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
