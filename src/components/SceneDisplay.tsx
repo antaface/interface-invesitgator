@@ -28,7 +28,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
     <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 max-w-xl mx-auto relative before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6">
       <div className="space-y-4">
         <p className="prose prose-invert text-zinc-50">
-          {sceneText}
+          Night has fallen on Siliconark, and the city is being overrun by the dark forces of UX mischief. You, the Interface Investigator, are called upon to investigate, fight UX felonies, and save Siliconark before another scroll‑jacked citizen vanishes into the infinite void.
         </p>
       </div>
       
