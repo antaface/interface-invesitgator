@@ -3,7 +3,7 @@ const base = import.meta.env.BASE_URL ?? "/";
 export function getBackground(sceneId: string) {
   const map: Record<string, string> = {
     landing:  `${base}backgrounds/landing.png`,
-    intro:    `${base}backgrounds/landing.png`,
+    intro:    `${base}backgrounds/intro.png`,
     nav:      `${base}backgrounds/nav.png`,
     tap:      `${base}backgrounds/tap.png`,
     form:     `${base}backgrounds/form.png`,
