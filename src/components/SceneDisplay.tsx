@@ -26,12 +26,14 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   const isSuccessScene = sceneId.endsWith('_success');
 
   const prefix     = sceneId.split(/[_\d]/)[0];      // "nav", "tap", etc.
-  const mappedPos  = cardPos[prefix];               // undefined if not mapped
-  const fallback   = "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2";
-  const wrapperCls = `absolute ${mappedPos ?? fallback} max-w-xl mx-auto`;
+  const pos  = cardPos[prefix];               // undefined if not mapped
+  const wrapperClass =
+    pos
+      ? `fixed ${pos} max-w-xl mx-auto`
+      : `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-xl mx-auto`;
 
   return (
-    <div className={`${wrapperCls} backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 relative before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6`}>
+    <div className={`${wrapperClass} backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 relative before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6`}>
       <div className="space-y-4">
         <p className="prose prose-invert text-zinc-50">
           Night has fallen on Siliconark, and the city is being overrun by the dark forces of UX mischief. You, the Interface Investigator, are called upon to investigate, fight UX felonies, and save Siliconark before another scroll‑jacked citizen vanishes into the infinite void.
