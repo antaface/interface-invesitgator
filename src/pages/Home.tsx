@@ -12,7 +12,7 @@ export default function Home() {
 
       {/* Copy & CTA in billboard space */}
       <div className="fixed bottom-32 left-24 max-w-sm space-y-6 text-white font-semibold">
-        <p className="text-lg leading-snug">
+        <p className="text-xl leading-normal">
           Unmask the evil patterns haunting Siliconark.<br />
           Your case file awaits.
         </p>
