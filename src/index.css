@@ -133,3 +133,19 @@ All colors MUST be HSL.
     @apply font-serif text-primary;
   }
 }
+
+/* Inward-notch glass card */
+.card-notch {
+  border-radius: 12px;                           /* smaller outer curve */
+  -webkit-mask:
+    /* 4 notched corners */
+    radial-gradient(12px at 12px 12px, transparent 12px, white 13px) top   left,
+    radial-gradient(12px at calc(100% - 12px) 12px, transparent 12px, white 13px) top   right,
+    radial-gradient(12px at 12px calc(100% - 12px), transparent 12px, white 13px) bottom left,
+    radial-gradient(12px at calc(100% - 12px) calc(100% - 12px), transparent 12px, white 13px) bottom right;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-composite: exclude;
+  /* optional subtle inner stroke */
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset;
+}

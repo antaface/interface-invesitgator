@@ -30,8 +30,8 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   
   const wrapperCls =
     pos
-      ? `fixed ${pos} w-[26rem] mx-auto backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 z-10 before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6`
-      : `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[26rem] mx-auto backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 z-10 before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6`;
+      ? `fixed ${pos} w-[26rem] mx-auto card-notch backdrop-blur-md bg-white/10 shadow-2xl p-8 z-10 space-y-6`
+      : `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[26rem] mx-auto card-notch backdrop-blur-md bg-white/10 shadow-2xl p-8 z-10 space-y-6`;
 
   // Debug logging
   console.log('🔍 SceneDisplay Debug:');
