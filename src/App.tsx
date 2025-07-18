@@ -189,20 +189,14 @@ const App = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35 }}
           >
-            {(() => {
-              const prefix = gameState.sceneId.split(/[_\d]/)[0];  // e.g. "nav"
-              return (
-                <SceneDisplay
-                  prefix={prefix}
-                  sceneId={gameState.sceneId}
-                  sceneText={gameState.sceneText}
-                  choices={gameState.choices}
-                  onChoose={onChoose}
-                  onViewLog={handleOpenCases}
-                  isIntro={gameState.sceneId === 'intro'}
-                />
-              );
-            })()}
+            <SceneDisplay
+              sceneId={gameState.sceneId}
+              sceneText={gameState.sceneText}
+              choices={gameState.choices}
+              onChoose={onChoose}
+              onViewLog={handleOpenCases}
+              isIntro={gameState.sceneId === 'intro'}
+            />
           </motion.div>
         )}
       </main>
