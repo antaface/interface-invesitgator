@@ -30,6 +30,14 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   const fallback   = "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2";
   const wrapperCls = `fixed ${pos ?? fallback} max-w-xl mx-auto z-10`;
 
+  // Debug logging
+  console.log('🔍 SceneDisplay Debug:');
+  console.log('  Scene ID:', sceneId);
+  console.log('  Extracted prefix:', prefix);
+  console.log('  Available positions:', Object.keys(cardPos));
+  console.log('  Found position:', pos);
+  console.log('  Final class:', wrapperCls);
+
   return (
     <div className={`${wrapperCls} backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl md:rounded-[0_0_32px_32px] shadow-2xl p-8 relative before:content-[''] before:absolute before:inset-0 before:rounded-inherit before:border before:border-white/10 before:pointer-events-none space-y-6`}>
       <div className="space-y-4">
