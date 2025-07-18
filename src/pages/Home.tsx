@@ -1,45 +1,32 @@
+import { useNavigate } from "react-router-dom";
 
-import React from 'react';
-import { Button } from "@/components/ui/button";
-import { useNavigate } from 'react-router-dom';
-
-const Home = () => {
+export default function Home() {
   const navigate = useNavigate();
-
-  const handleStartInvestigation = () => {
-    localStorage.removeItem("ii-session");
-    navigate('/play');
-  };
-
   return (
     <div className="relative min-h-screen">
+      {/* Background image (already wired) */}
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center"
         style={{ backgroundImage: "url(/backgrounds/landing.png)" }}
       />
-      <div className="container mx-auto px-4 py-8">
-        {/* Hero Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 text-primary">
-            Interface Investigator
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Solve UX crimes through interactive decision-making. Ready to crack your first case?
-          </p>
-        </div>
 
-        {/* CTA Button */}
-        <div className="text-center">
-          <Button 
-            onClick={handleStartInvestigation}
-            className="btn-3d mt-8"
-          >
-            Start investigation
-          </Button>
-        </div>
+      {/* Copy & CTA in billboard space */}
+      <div className="fixed bottom-24 left-12 max-w-sm space-y-6 text-white font-semibold">
+        <p className="text-lg leading-snug">
+          Solve UX crimes through interactive decision-making.<br />
+          Ready to crack your first case?
+        </p>
+
+        <button
+          className="btn-3d"
+          onClick={() => {
+            localStorage.removeItem("ii-session");
+            navigate("/play");
+          }}
+        >
+          Start investigation
+        </button>
       </div>
     </div>
   );
-};
-
-export default Home;
+}
