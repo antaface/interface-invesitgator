@@ -194,10 +194,9 @@ const App = () => {
         {/* Show card only when scene is ready */}
         {scene && contentReady && (
           <motion.div
-            key={scene.sceneId}
-            initial={{ opacity: 0, y: 16 }}   // start slightly lower & transparent
-            animate={{ opacity: 1, y: 0 }}    // fade in & float up
-            exit={{ opacity: 0, y: -16 }}     // when changing scenes
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
           >
             <SceneDisplay
