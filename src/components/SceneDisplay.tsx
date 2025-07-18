@@ -45,7 +45,10 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
     <div className={wrapperCls}>
       <div className="space-y-4">
         <p className="prose prose-invert text-zinc-50">
-          {sceneText}
+          {sceneId === 'intro' 
+            ? "Night has fallen on Siliconark, and the city is being overrun by the dark forces of UX mischief. You, the Interface Investigator, are called upon to investigate, fight UX felonies, and save Siliconark before another scroll‑jacked citizen vanishes into the infinite void."
+            : sceneText
+          }
         </p>
       </div>
       
