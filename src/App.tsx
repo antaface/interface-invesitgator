@@ -188,6 +188,7 @@ const App = () => {
         {scene && (
           <motion.div
             key={scene.sceneId}
+            layout="position"             // new: skip zero-size layout pass
             initial={{ opacity: 0, y: 16 }}   // start slightly lower & transparent
             animate={{ opacity: 1, y: 0 }}    // fade in & float up
             exit={{ opacity: 0, y: -16 }}     // when changing scenes
