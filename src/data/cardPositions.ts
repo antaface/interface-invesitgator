@@ -1,6 +1,6 @@
 export const cardPos: { [prefix: string]: string } = {
   landing: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-  nav: "top-12 left-1/2 -translate-x-1/2",
+  nav: "top-6 left-1/2 -translate-x-1/2",
   tap: "bottom-16 left-12",
   form: "top-1/3 left-12",
   popup: "bottom-24 right-12",
