@@ -16,6 +16,7 @@ interface Scene {
 
 const App = () => {
   const [scene, setScene] = useState<Scene | null>(null);
+  const [contentReady, setReady] = useState(false);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
@@ -75,6 +76,8 @@ const App = () => {
           choices: data.choices,
           sessionId: data.sessionId
         });
+        setReady(false);
+        queueMicrotask(() => setReady(true));
       } catch (error) {
         console.error('Error initializing game:', error);
       }
@@ -112,6 +115,8 @@ const App = () => {
         choices: data.choices,
         sessionId: data.sessionId
       });
+      setReady(false);
+      queueMicrotask(() => setReady(true));
     } catch (error) {
       console.error('Error processing choice:', error);
     }
@@ -148,6 +153,8 @@ const App = () => {
         choices: data.choices,
         sessionId: data.sessionId
       });
+      setReady(false);
+      queueMicrotask(() => setReady(true));
     } catch (error) {
       console.error('Error jumping to case:', error);
     }
@@ -185,7 +192,7 @@ const App = () => {
         )}
 
         {/* Show card only when scene is ready */}
-        {scene && (
+        {scene && contentReady && (
           <motion.div
             key={scene.sceneId}
             layout="position"             // new: skip zero-size layout pass
