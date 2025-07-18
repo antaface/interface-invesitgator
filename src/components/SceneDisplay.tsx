@@ -12,6 +12,7 @@ interface SceneDisplayProps {
   onChoose: (id: string) => void;
   onViewLog: () => void;
   isIntro: boolean;
+  prefix?: string;
 }
 
 const SceneDisplay: React.FC<SceneDisplayProps> = ({
@@ -21,12 +22,13 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   onChoose,
   onViewLog,
   isIntro,
+  prefix,
 }) => {
   const isIntroScene = isIntro;
   const isSuccessScene = sceneId.endsWith('_success');
 
-  const prefix = sceneId.split(/[_\d]/)[0];
-  const pos    = cardPos[prefix];          // undefined if not mapped
+   const extractedPrefix = prefix || sceneId.split(/[_\d]/)[0];
+   const pos    = cardPos[extractedPrefix];          // undefined if not mapped
   const wrapperClass =
     pos
       ? `absolute ${pos} max-w-xl mx-auto`
