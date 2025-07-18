@@ -13,8 +13,8 @@ export default function Home() {
       {/* Copy & CTA in billboard space */}
       <div className="fixed bottom-24 left-12 max-w-sm space-y-6 text-white font-semibold">
         <p className="text-lg leading-snug">
-          Solve UX crimes through interactive decision-making.<br />
-          Ready to crack your first case?
+          Unmask the evil patterns haunting Siliconark.<br />
+          Your case file awaits.
         </p>
 
         <button
