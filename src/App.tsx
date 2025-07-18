@@ -196,6 +196,7 @@ const App = () => {
               onChoose={onChoose}
               onViewLog={handleOpenCases}
               isIntro={gameState.sceneId === 'intro'}
+              prefix={gameState.sceneId.match(/^[a-z]+/)?.[0]}
             />
           </motion.div>
         )}
