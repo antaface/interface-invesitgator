@@ -7,7 +7,7 @@ import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
 import { getBackground } from './utils/getBackground';
 
-interface GameState {
+interface Scene {
   sceneId: string;
   sceneText: string;
   choices: { id: string; label: string }[];
@@ -15,12 +15,7 @@ interface GameState {
 }
 
 const App = () => {
-  const [gameState, setGameState] = useState<GameState>({
-    sceneId: '',
-    sceneText: '',
-    choices: [],
-    sessionId: ''
-  });
+  const [scene, setScene] = useState<Scene | null>(null);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
@@ -74,7 +69,7 @@ const App = () => {
           setIntroChoices(data.choices);
         }
         
-        setGameState({
+        setScene({
           sceneId: data.sceneId,
           sceneText: data.sceneText,
           choices: data.choices,
@@ -97,7 +92,7 @@ const App = () => {
           'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bGl3YnhhbHJpdmVpbW93ZWF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMzQyNjYsImV4cCI6MjA2NzkxMDI2Nn0.Y322OiK3oTHYsJtqbWvy1LTHqlnaCSGOjUJJRPd3uZk`
         },
         body: JSON.stringify({
-          sessionId: gameState.sessionId,
+          sessionId: scene?.sessionId,
           choiceId: choiceId
         })
       });
@@ -111,7 +106,7 @@ const App = () => {
       // Store updated sessionId in localStorage
       localStorage.setItem('ii-session', data.sessionId);
       
-      setGameState({
+      setScene({
         sceneId: data.sceneId,
         sceneText: data.sceneText,
         choices: data.choices,
@@ -124,7 +119,7 @@ const App = () => {
 
   const handleSelectCase = async (prefix: string) => {
     try {
-      const storedSessionId = localStorage.getItem('ii-session') || gameState.sessionId;
+      const storedSessionId = localStorage.getItem('ii-session') || scene?.sessionId;
       
       const response = await fetch('https://auliwbxalriveimoweat.supabase.co/functions/v1/chat', {
         method: 'POST',
@@ -147,7 +142,7 @@ const App = () => {
       // Store updated sessionId in localStorage
       localStorage.setItem('ii-session', data.sessionId);
       
-      setGameState({
+      setScene({
         sceneId: data.sceneId,
         sceneText: data.sceneText,
         choices: data.choices,
@@ -176,26 +171,35 @@ const App = () => {
       {/* BACKGROUND */}
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center transition-opacity duration-700"
-        style={{ backgroundImage: `url(${getBackground(gameState.sceneId)})` }}
+        style={{ backgroundImage: `url(${getBackground(scene?.sceneId || '')})` }}
       />
 
       {/* FOREGROUND UI */}
       <Header muted={isMuted} toggleMute={toggleMute} openCaseLog={handleOpenCases} />
       <main className="flex flex-col items-center justify-center min-h-screen">
-        {gameState.sceneId && (
+        {/* Loader while first fetch is in flight */}
+        {!scene && (
+          <div className="fixed inset-0 flex items-center justify-center text-white">
+            Loading…
+          </div>
+        )}
+
+        {/* Show card only when scene is ready */}
+        {scene && (
           <motion.div
-            key={gameState.sceneId}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
+            key={scene.sceneId}
+            initial={{ opacity: 0, y: 16 }}   // start slightly lower & transparent
+            animate={{ opacity: 1, y: 0 }}    // fade in & float up
+            exit={{ opacity: 0, y: -16 }}     // when changing scenes
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
             <SceneDisplay
-              sceneId={gameState.sceneId}
-              sceneText={gameState.sceneText}
-              choices={gameState.choices}
+              sceneId={scene.sceneId}
+              sceneText={scene.sceneText}
+              choices={scene.choices}
               onChoose={onChoose}
-              onViewLog={handleOpenCases}
-              isIntro={gameState.sceneId === 'intro'}
+              onViewLog={() => setDrawerOpen(true)}
+              isIntro={scene.sceneId === "intro"}
             />
           </motion.div>
         )}
