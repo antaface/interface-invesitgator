@@ -33,8 +33,8 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   
   const wrapperCls =
     finalPos
-      ? `fixed ${finalPos} max-w-xl mx-auto rounded-xl border border-white/20 backdrop-blur-md bg-white/10 shadow-2xl p-8 z-10 space-y-6 shadow-[inset_0_0_12px_rgba(255,255,255,0.05)]`
-      : `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-xl mx-auto rounded-xl border border-white/20 backdrop-blur-md bg-white/10 shadow-2xl p-8 z-10 space-y-6 shadow-[inset_0_0_12px_rgba(255,255,255,0.05)]`;
+      ? `fixed ${finalPos} max-w-[350px] mx-auto rounded-xl border border-white/20 backdrop-blur-md bg-white/10 shadow-2xl p-8 z-10 space-y-6 shadow-[inset_0_0_12px_rgba(255,255,255,0.05)]`
+      : `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[350px] mx-auto rounded-xl border border-white/20 backdrop-blur-md bg-white/10 shadow-2xl p-8 z-10 space-y-6 shadow-[inset_0_0_12px_rgba(255,255,255,0.05)]`;
 
   // Debug logging
   console.log('🔍 SceneDisplay Debug:');
