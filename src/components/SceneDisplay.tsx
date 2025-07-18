@@ -42,7 +42,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   console.log('  Final class:', wrapperCls);
 
   return (
-    <div className={wrapperCls + " min-w-[18rem]"}>
+    <div className={wrapperCls + " min-w-[20rem]"}>
       <div className="space-y-4">
         <p className="prose prose-invert text-zinc-50">
           {sceneId === 'intro' 
