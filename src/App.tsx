@@ -5,7 +5,7 @@ import { Howl, Howler } from 'howler';
 import { Header } from './components/Header';
 import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
-import CaseClosedBanner from "@/components/CaseClosedBanner";
+
 import { getBackground } from './utils/getBackground';
 import { playSfx } from "./hooks/useSfx";
 
@@ -222,7 +222,6 @@ const App = () => {
           </div>
         )}
 
-        {scene?.sceneId.endsWith("_success") && <CaseClosedBanner />}
         {/* Show card only when scene is ready */}
         {scene && contentReady && (
           <motion.div
