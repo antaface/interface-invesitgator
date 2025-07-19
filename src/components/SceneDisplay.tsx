@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from "framer-motion";
 import { cardPos } from '@/data/cardPositions';
 import { playSfx } from "@/hooks/useSfx";
 
@@ -23,6 +24,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   onViewLog,
   isIntro,
 }) => {
+  const Wrapper = motion.div;
   const isIntroScene = isIntro;
   const isSuccessScene = sceneId.endsWith('_success');
 
@@ -46,7 +48,15 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
   console.log('  Final class:', wrapperCls);
 
   return (
-    <div className={wrapperCls + " min-w-[20rem]"}>
+    <Wrapper 
+      className={wrapperCls + " min-w-[20rem]"}
+      animate={
+        sceneId.endsWith("_fail") 
+          ? { x: [0, -6, 6, -4, 4, 0] } 
+          : { x: 0 }
+      }
+      transition={{ duration: 0.4 }}
+    >
       <div className="space-y-4">
         <p className="prose prose-invert text-zinc-50">
           {sceneId === 'intro' 
@@ -97,7 +107,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
           ))
         )}
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
