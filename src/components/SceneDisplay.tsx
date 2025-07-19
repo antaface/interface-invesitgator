@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cardPos } from '@/data/cardPositions';
+import { playSfx } from "@/hooks/useSfx";
 
 interface SceneDisplayProps {
   sceneId: string;
@@ -58,7 +59,10 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
       <div className="flex flex-col md:flex-row md:flex-wrap gap-3">
         {isIntroScene ? (
           <button
-            onClick={onViewLog}
+            onClick={() => {
+              playSfx("click");
+              onViewLog();
+            }}
             className="btn-3d mb-3"
           >
             Open case log
@@ -69,7 +73,10 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
               ✅ Case Closed
             </div>
             <button
-              onClick={onViewLog}
+              onClick={() => {
+                playSfx("click");
+                onViewLog();
+              }}
               className="btn-3d mb-3"
             >
               Back to case log
@@ -79,7 +86,10 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
           choices.map((choice) => (
             <button
               key={choice.id}
-              onClick={() => onChoose(choice.id)}
+              onClick={() => {
+                playSfx("click");
+                onChoose(choice.id);
+              }}
               className="btn-3d mb-3"
             >
               {choice.label}
