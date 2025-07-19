@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { playSfx } from "@/hooks/useSfx";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Home() {
         <button
           className="btn-3d"
           onClick={() => {
+            playSfx("click");
             localStorage.removeItem("ii-session");
             navigate("/play");
           }}

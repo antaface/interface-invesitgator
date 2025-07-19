@@ -1,4 +1,5 @@
 
+import { playSfx } from "@/hooks/useSfx";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +24,10 @@ export function CasesLogModal({ open, onClose, onSelectCase }: CasesLogModalProp
             <div key={c.prefix} className="flex items-center justify-between p-3 border rounded">
               <span className="text-left">{c.title}</span>
               <button
-                onClick={() => onSelectCase(c.prefix)}
+                onClick={() => {
+                  playSfx("click");
+                  onSelectCase(c.prefix);
+                }}
                 className="btn-link"
               >
                 Investigate&nbsp;now →
