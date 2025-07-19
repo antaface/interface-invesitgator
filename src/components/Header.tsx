@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Music2, Volume2, VolumeX, X, FolderKanban } from "lucide-react";
+import { Music2, Volume2, VolumeX, Slash, FolderKanban } from "lucide-react";
 
 interface HeaderProps {
   musicMuted: boolean;
@@ -30,15 +30,18 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Music toggle */}
       <button
         onClick={toggleMusic}
-        className="w-10 h-10 rounded-full bg-black/40 backdrop-blur flex items-center justify-center hover:bg-black/60 text-white"
+        className="relative w-10 h-10 rounded-full bg-black/40 backdrop-blur 
+                   flex items-center justify-center hover:bg-black/60 text-white"
         title={musicMuted ? "Play music" : "Mute music"}
       >
         {musicMuted
           ? (
             <div className="relative">
               <Music2 size={20} />
-              <X size={12}
-                 className="absolute top-0 right-0 text-white"/>
+              <Slash
+                size={16}
+                className="absolute inset-0 m-auto text-white"
+              />
             </div>
           )
           : <Music2 size={20} />
