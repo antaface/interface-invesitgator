@@ -23,6 +23,7 @@ const App = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
   const [isMuted, setIsMuted] = useState(false);
+  const [solved, setSolved] = useState<Set<string>>(new Set());
   
   const bg = useRef<Howl | null>(null);
 
@@ -118,7 +119,11 @@ const App = () => {
         sessionId: data.sessionId
       });
       
-      if (data.sceneId.endsWith("_success")) playSfx("success");
+      if (data.sceneId.endsWith("_success")) {
+        playSfx("success");
+        const solvedPrefix = data.sceneId.split(/[_\d]/)[0];
+        setSolved(prev => new Set(prev).add(solvedPrefix));
+      }
       if (data.sceneId.endsWith("_fail")) playSfx("fail");
       setReady(false);
       queueMicrotask(() => setReady(true));
@@ -159,7 +164,11 @@ const App = () => {
         sessionId: data.sessionId
       });
       
-      if (data.sceneId.endsWith("_success")) playSfx("success");
+      if (data.sceneId.endsWith("_success")) {
+        playSfx("success");
+        const solvedPrefix = data.sceneId.split(/[_\d]/)[0];
+        setSolved(prev => new Set(prev).add(solvedPrefix));
+      }
       if (data.sceneId.endsWith("_fail")) playSfx("fail");
       setReady(false);
       queueMicrotask(() => setReady(true));
@@ -223,6 +232,7 @@ const App = () => {
         open={drawerOpen} 
         onClose={() => setDrawerOpen(false)}
         onSelectCase={handleSelectCase}
+        solved={solved}
       />
     </div>
   );
