@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
 import { getBackground } from './utils/getBackground';
+import { playSfx } from "./hooks/useSfx";
 
 interface Scene {
   sceneId: string;
@@ -115,6 +116,9 @@ const App = () => {
         choices: data.choices,
         sessionId: data.sessionId
       });
+      
+      if (data.sceneId.endsWith("_success")) playSfx("success");
+      if (data.sceneId.endsWith("_fail")) playSfx("fail");
       setReady(false);
       queueMicrotask(() => setReady(true));
     } catch (error) {
@@ -153,6 +157,9 @@ const App = () => {
         choices: data.choices,
         sessionId: data.sessionId
       });
+      
+      if (data.sceneId.endsWith("_success")) playSfx("success");
+      if (data.sceneId.endsWith("_fail")) playSfx("fail");
       setReady(false);
       queueMicrotask(() => setReady(true));
     } catch (error) {
