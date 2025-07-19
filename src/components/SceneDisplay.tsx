@@ -78,20 +78,15 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
             Open case log
           </button>
         ) : isSuccessScene ? (
-          <>
-            <div className="text-green-600 font-semibold text-center mb-2">
-              ✅ Case Closed
-            </div>
-            <button
-              onClick={() => {
-                playSfx("click");
-                onViewLog();
-              }}
-              className="btn-3d mb-3"
-            >
-              Back to case log
-            </button>
-          </>
+          <button
+            onClick={() => {
+              playSfx("click");
+              onViewLog();
+            }}
+            className="btn-3d mb-3"
+          >
+            Back to case log
+          </button>
         ) : (
           choices.map((choice) => (
             <button
