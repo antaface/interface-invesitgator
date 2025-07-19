@@ -6,6 +6,10 @@ const sounds = {
   fail: new Howl({ src: ["/audio/fail.mp3"], volume: 0.4 }),
 };
 
-export function playSfx(name: "click" | "success" | "fail") {
-  sounds[name]?.play();
+export function playSfx(
+  name: "click" | "success" | "fail",
+  muted = false
+) {
+  if (muted) return;
+  sounds[name].play();
 }

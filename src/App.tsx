@@ -22,22 +22,23 @@ const App = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [introChoices, setIntroChoices] = useState<{ id: string; label: string }[]>([]);
-  const [isMuted, setIsMuted] = useState(false);
+  const [musicMuted, setMusicMuted] = useState(false);
+  const [sfxMuted, setSfxMuted] = useState(false);
   const [solved, setSolved] = useState<Set<string>>(new Set());
   
   const bg = useRef<Howl | null>(null);
 
   useEffect(() => {
-    // Load mute state from localStorage on component mount
-    const savedMuteState = localStorage.getItem('audioMuted');
-    const shouldMute = savedMuteState === 'true';
-    setIsMuted(shouldMute);
-    Howler.mute(shouldMute);
+    // Load mute states from localStorage on component mount
+    const savedMusicMute = localStorage.getItem('musicMuted') === 'true';
+    const savedSfxMute = localStorage.getItem('sfxMuted') === 'true';
+    setMusicMuted(savedMusicMute);
+    setSfxMuted(savedSfxMute);
     
     bg.current = new Howl({
       src: ["/audio/ambient_loop.mp3"],
       loop: true,
-      volume: 0.2,
+      volume: savedMusicMute ? 0 : 0.2,
     });
     bg.current.play();
     return () => {
@@ -120,11 +121,11 @@ const App = () => {
       });
       
       if (data.sceneId.endsWith("_success")) {
-        playSfx("success");
+        playSfx("success", sfxMuted);
         const solvedPrefix = data.sceneId.split(/[_\d]/)[0];
         setSolved(prev => new Set(prev).add(solvedPrefix));
       }
-      if (data.sceneId.endsWith("_fail")) playSfx("fail");
+      if (data.sceneId.endsWith("_fail")) playSfx("fail", sfxMuted);
       setReady(false);
       queueMicrotask(() => setReady(true));
     } catch (error) {
@@ -165,11 +166,11 @@ const App = () => {
       });
       
       if (data.sceneId.endsWith("_success")) {
-        playSfx("success");
+        playSfx("success", sfxMuted);
         const solvedPrefix = data.sceneId.split(/[_\d]/)[0];
         setSolved(prev => new Set(prev).add(solvedPrefix));
       }
-      if (data.sceneId.endsWith("_fail")) playSfx("fail");
+      if (data.sceneId.endsWith("_fail")) playSfx("fail", sfxMuted);
       setReady(false);
       queueMicrotask(() => setReady(true));
     } catch (error) {
@@ -183,11 +184,17 @@ const App = () => {
     setDrawerOpen(true);
   };
 
-  const toggleMute = () => {
-    const newMuteState = !isMuted;
-    setIsMuted(newMuteState);
-    Howler.mute(newMuteState);
-    localStorage.setItem('audioMuted', newMuteState.toString());
+  const toggleMusic = () => {
+    const newState = !musicMuted;
+    setMusicMuted(newState);
+    bg.current?.volume(newState ? 0 : 0.2);
+    localStorage.setItem('musicMuted', newState.toString());
+  };
+
+  const toggleSfx = () => {
+    const newState = !sfxMuted;
+    setSfxMuted(newState);
+    localStorage.setItem('sfxMuted', newState.toString());
   };
 
   return (
@@ -199,7 +206,13 @@ const App = () => {
       />
 
       {/* FOREGROUND UI */}
-      <Header muted={isMuted} toggleMute={toggleMute} openCaseLog={handleOpenCases} />
+      <Header
+        musicMuted={musicMuted}
+        sfxMuted={sfxMuted}
+        toggleMusic={toggleMusic}
+        toggleSfx={toggleSfx}
+        openCaseLog={handleOpenCases}
+      />
       <main className="flex flex-col items-center justify-center min-h-screen">
         {/* Loader while first fetch is in flight */}
         {!scene && (
