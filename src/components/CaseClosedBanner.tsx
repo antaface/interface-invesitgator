@@ -10,10 +10,10 @@ export default function CaseClosedBanner() {
       className="absolute -top-12 left-0 w-full rounded-xl
                  backdrop-blur-md bg-emerald-600/30
                  border border-emerald-200/40
-                 text-white text-center font-extrabold tracking-wider
+                 text-xl text-white text-center font-extrabold tracking-wider
                  py-4 shadow-xl pointer-events-none"
     >
-      CASE<br />CLOSED&nbsp;✅
+      CASE CLOSED&nbsp;
     </motion.div>
   );
 }
