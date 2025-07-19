@@ -72,37 +72,40 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
       
       <div className="flex flex-col md:flex-row md:flex-wrap gap-3">
         {isIntroScene ? (
-          <button
+          <motion.button
             onClick={() => {
               playSfx("click");
               onViewLog();
             }}
             className="btn-3d mb-3"
+            whileTap={{ scale: 0.9 }}
           >
             Open case log
-          </button>
+          </motion.button>
         ) : isSuccessScene ? (
-          <button
+          <motion.button
             onClick={() => {
               playSfx("click");
               onViewLog();
             }}
             className="btn-3d mb-3"
+            whileTap={{ scale: 0.9 }}
           >
             Back to case log
-          </button>
+          </motion.button>
         ) : (
           choices.map((choice) => (
-            <button
+            <motion.button
               key={choice.id}
               onClick={() => {
                 playSfx("click");
                 onChoose(choice.id);
               }}
               className="btn-3d mb-3"
+              whileTap={{ scale: 0.9 }}
             >
               {choice.label}
-            </button>
+            </motion.button>
           ))
         )}
       </div>
