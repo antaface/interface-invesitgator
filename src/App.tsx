@@ -7,7 +7,7 @@ import SceneDisplay from './components/SceneDisplay';
 import { CasesLogModal } from './components/CasesLogModal';
 import { getBackground } from './utils/getBackground';
 import { playSfx } from "./hooks/useSfx";
-import CaseClosedBanner from './components/CaseClosedBanner';
+
 
 interface Scene {
   sceneId: string;
@@ -199,7 +199,6 @@ const App = () => {
       />
 
       {/* FOREGROUND UI */}
-      {scene?.sceneId.endsWith("_success") && <CaseClosedBanner />}
       <Header muted={isMuted} toggleMute={toggleMute} openCaseLog={handleOpenCases} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         {/* Loader while first fetch is in flight */}
