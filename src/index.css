@@ -8,12 +8,15 @@
 .btn-3d {
   @apply inline-flex items-center justify-center font-semibold
     text-white px-6 py-2 rounded-lg shadow-button-3d
-    bg-accentStart transition-transform duration-100 ease-out;
+    bg-accentStart transition-transform transition-shadow duration-200 ease-in-out;
   text-transform: none;               /* sentence case */
 }
+.btn-3d:hover {
+  @apply scale-105 shadow-lg;
+}
 .btn-3d:active {
+  @apply scale-100 shadow-md;
   transform: translateY(3px);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .btn-link {
