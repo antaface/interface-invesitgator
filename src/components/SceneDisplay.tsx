@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from "framer-motion";
 import { cardPos } from '@/data/cardPositions';
 import { playSfx } from "@/hooks/useSfx";
-import CaseClosedBanner from "@/components/CaseClosedBanner";
+
 
 interface SceneDisplayProps {
   sceneId: string;
@@ -58,7 +58,7 @@ const SceneDisplay: React.FC<SceneDisplayProps> = ({
       }
       transition={{ duration: 0.4 }}
     >
-      {sceneId.endsWith("_success") && <CaseClosedBanner />}
+      
       <div className="space-y-4">
         <p className="prose prose-invert text-zinc-50">
           {sceneId === 'intro' 
