@@ -9,6 +9,6 @@ It’s part branching narrative game, part portfolio piece, part satire of bad U
 - All logic and components built through AI pair programming via Lovable
 - A whole lot of design jokes and UX easter eggs
 
-> Play the game → [[link](https://interface-investigator.lovable.app/)]  
-> Read the making-of → [Substack link]
+> [[Play the game](https://interface-investigator.lovable.app/)]  
+> [[Read the making-of](https://open.substack.com/pub/anterface/p/interface-investigator-solving-ux?r=5d7yh1&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false)]
 
